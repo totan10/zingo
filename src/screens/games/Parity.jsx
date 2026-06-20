@@ -303,7 +303,7 @@ const Parity = () => {
                   ₹{winWallet}
                 </p>
 
-                <button
+                {/* <button
                   className="btn text-white rounded-pill w-100 fw-medium"
                   style={{
                     backgroundColor: "#65c65f",
@@ -316,7 +316,7 @@ const Parity = () => {
                   }
                 >
                   Withdraw
-                </button>
+                </button> */}
 
                 <button
                   className="btn text-white rounded-pill w-100 fw-medium mt-2"
@@ -340,7 +340,7 @@ const Parity = () => {
                   ₹{playWallet}
                 </p>
 
-                <button
+                {/* <button
                   className="btn text-white rounded-pill w-100 fw-medium"
                   style={{
                     backgroundColor: "#65c65f",
@@ -353,7 +353,7 @@ const Parity = () => {
                   }
                 >
                   Recharge
-                </button>
+                </button> */}
 
                 <button
                   className="btn text-white rounded-pill w-100 fw-medium mt-2"

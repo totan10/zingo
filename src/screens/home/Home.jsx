@@ -17,10 +17,6 @@ const Home = () => {
           <h1 style={{ fontSize: "1.5rem" }}>All Games</h1>
 
           <div className="games">
-            <div onClick={() => navigate("/power-x")} className="game">
-              <img src={powerx} alt="power x" />
-            </div>
-
             <div onClick={() => navigate("/dus-ka-dum")} className="game">
               <img src={daskadum} alt="das ka dum" />
             </div>

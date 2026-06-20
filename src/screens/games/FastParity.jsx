@@ -269,7 +269,7 @@ const FastParity = () => {
                 ₹{winWallet}
               </p>
 
-              <button
+              {/* <button
                 className="btn text-white rounded-pill w-100 fw-medium"
                 style={{
                   backgroundColor: "#fc940d",
@@ -280,7 +280,7 @@ const FastParity = () => {
                 }
               >
                 Withdraw
-              </button>
+              </button> */}
 
               <button
                 className="btn text-white rounded-pill w-100 fw-medium mt-2"
@@ -302,7 +302,7 @@ const FastParity = () => {
                 ₹{playWallet}
               </p>
 
-              <button
+              {/* <button
                 className="btn text-white rounded-pill w-100 fw-medium"
                 style={{
                   backgroundColor: "#fc940d",
@@ -315,7 +315,7 @@ const FastParity = () => {
                 }
               >
                 Recharge
-              </button>
+              </button> */}
 
               <button
                 className="btn text-white rounded-pill w-100 fw-medium mt-2"
