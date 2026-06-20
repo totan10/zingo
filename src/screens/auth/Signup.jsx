@@ -10,15 +10,12 @@ import "./auth.css";
 import { auth, provider } from "../../firebase.config";
 import { signInWithPopup } from "firebase/auth";
 import { AppContext } from "../../context/AppContext";
-import axios from "axios";
 import Spinner from "../../components/spinner/Spinner";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [seconds, setSeconds] = useState(0);
-  const [otpSent, setOtpSent] = useState(false);
   const location = useLocation();
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const { setUser } = useContext(AppContext);
 
   useEffect(() => {
@@ -30,7 +27,6 @@ const Signup = () => {
   const handleGoogleSignup = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
-      const user = result.user;
       const body = {
         email: result?.user?.email,
         uid: result?.user?.uid,
@@ -69,8 +65,7 @@ const Signup = () => {
   const initialValues = {
     newPassword: "",
     confirmPassword: "",
-    otp: "",
-    email: "",
+    mobile: "",
     referrerCode: location?.state?.referrerCode,
   };
 
@@ -80,7 +75,7 @@ const Signup = () => {
       validationSchema: signupSchema,
       onSubmit: async (values) => {
         try {
-          setLoading(true)
+          setLoading(true);
           const formData = new FormData();
 
           for (const key in values) {
@@ -93,7 +88,7 @@ const Signup = () => {
           };
 
           const { data } = await dbObject.post(
-            "/users/register-with-email.php",
+            "/users/register-with-mobile.php",
             formData,
             config
           );
@@ -107,77 +102,19 @@ const Signup = () => {
             toast.error(data.message, toastOptions);
           }
 
-          setLoading(false)
+          setLoading(false);
         } catch (error) {
-          setLoading(true)
+          setLoading(true);
           console.log(error);
           toast.error("Internal server error", toastOptions);
-          setLoading(false)
+          setLoading(false);
         }
       },
     });
 
-  useEffect(() => {
-    if (seconds > 0 && otpSent) {
-      const interval = setInterval(() => {
-        setSeconds(seconds - 1);
-      }, 1000);
-
-      return () => clearInterval(interval);
-    }
-
-    if (seconds <= 0) {
-      setOtpSent(false);
-    }
-  }, [seconds, otpSent]);
-  const handleOTP = async () => {
-    try {
-      setLoading(true)
-      if (!values.email) return toast.error("Email is required", toastOptions);
-      const inputs = {
-        email: values.email,
-      };
-      const formData = new FormData();
-      for (const key in inputs) {
-        formData.append(key, inputs[key]);
-      }
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data", // Set the content type to form data
-        },
-      };
-
-      const { data } = await axios.post(
-        "https://app-apis.zingo.online/mail-sender/send-register-otp.php",
-        formData,
-        config
-      );
-
-      if (!data.error) {
-        toast.success(data.message, toastOptions);
-        setSeconds(60);
-        setOtpSent(true);
-      } else {
-        toast.error(data.message, toastOptions);
-      }
-
-      setLoading(false)
-    } catch (error) {
-      setLoading(true)
-      console.log(error);
-
-      if (error?.response?.data) {
-        toast.error(error?.response?.data?.error, toastOptions);
-      }
-      setLoading(false)
-    }
-  };
-
   return (
     <IsNotAuthenticate>
-      {
-        loading && <Spinner />
-      }
+      {loading && <Spinner />}
       <Toaster />
       <div className="login-dark">
         <form onSubmit={handleSubmit} method="post" className="container">
@@ -198,49 +135,16 @@ const Signup = () => {
               autoComplete="off"
               className="form-control"
               type="text"
-              name="email"
-              placeholder="Email"
-              value={values.email}
+              name="mobile"
+              placeholder="Mobile"
+              value={values.mobile}
               onBlur={handleBlur}
               onChange={handleChange}
             />
-            {errors.email && touched.email ? (
-              <small style={{ color: "red" }}>{errors.email}</small>
+            {errors.mobile && touched.mobile ? (
+              <small style={{ color: "red" }}>{errors.mobile}</small>
             ) : null}
           </div>
-
-          {otpSent && seconds > 0 ? (
-            <div
-              className="mt-2"
-              style={{ fontSize: 12, marginBottom: -12, paddingLeft: 13 }}
-            >
-              Resend otp in <span>{seconds}</span> s
-            </div>
-          ) : null}
-          <div className="form-group d-flex">
-            <input
-              autoComplete="off"
-              className="form-control"
-              type="text"
-              name="otp"
-              placeholder="OTP"
-              value={values.otp}
-              onBlur={handleBlur}
-              onChange={handleChange}
-            />
-
-            <button
-              onClick={handleOTP}
-              type="button"
-              className="btn btn-primary"
-              disabled={otpSent}
-            >
-              OTP
-            </button>
-          </div>
-          {errors.otp && touched.otp ? (
-            <small style={{ color: "red" }}>{errors.otp}</small>
-          ) : null}
 
           <div className="form-group mt-2">
             <input

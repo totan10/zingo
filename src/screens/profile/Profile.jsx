@@ -107,7 +107,7 @@ const Profile = () => {
               <b>ID: {user?.referCode}</b>
             </div>
             <div className="user__details__section__right__col">
-              {user?.email}
+              {user?.mobile}
             </div>
           </div>
         </div>

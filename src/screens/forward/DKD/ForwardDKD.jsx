@@ -12,11 +12,11 @@ const Forward = () => {
   const location = useLocation();
   const [contactList, setContactList] = useState([]);
   const [nickname, setnickname] = useState("");
-  const [email, setemail] = useState("");
+  const [mobile, setmobile] = useState("");
   const [showAddFriend, setShowAddFriend] = useState(false);
   const [showSendMoney, setShowSendMoney] = useState(false);
   const [points, setPoints] = useState("");
-  const [selectedEmail, setSelectedEmail] = useState("");
+  const [selectedMobile, setSelectedMobile] = useState("");
   const [forwardFees, setforwardFees] = useState("0");
   const [minForward, setminForward] = useState("0");
   const [loading, setLoading] = useState(false);
@@ -61,7 +61,7 @@ const Forward = () => {
       setLoading(true);
       const values = {
         nickname,
-        email,
+        mobile,
       };
 
       const formData = new FormData();
@@ -84,6 +84,8 @@ const Forward = () => {
         toast.success(data.message, toastOptions);
         getContactList();
         setShowAddFriend(false);
+        setmobile("");
+        setnickname("");
       } else {
         toast.error(data.message, toastOptions);
       }
@@ -98,7 +100,7 @@ const Forward = () => {
     try {
       setLoading(true);
       const values = {
-        email: selectedEmail,
+        mobile: selectedMobile,
         points,
       };
 
@@ -234,7 +236,7 @@ const Forward = () => {
                   key={i}
                   onClick={() => {
                     setShowSendMoney(true);
-                    setSelectedEmail(item.email);
+                    setSelectedMobile(item.mobile);
                   }}
                   className="transaction-history-card py-0"
                 >
@@ -245,7 +247,7 @@ const Forward = () => {
                     ></i>
                     <div>
                       <p className="m-0 text-dark">{item.nickname}</p>
-                      <p className="m-0 text-dark">{item.email}</p>
+                      <p className="m-0 text-dark">{item.mobile}</p>
                     </div>
                   </div>
 
@@ -312,15 +314,15 @@ const Forward = () => {
                           htmlFor="exampleInputPassword1"
                           className="form-label"
                         >
-                          Email
+                          Mobile
                         </label>
                         <input
-                          type="email"
-                          value={email}
+                          type="text"
+                          value={mobile}
                           className="form-control text-light"
                           id="exampleInputPassword1"
                           style={{ background: "#d3d3d33b", border: "none" }}
-                          onChange={(e) => setemail(e.target.value)}
+                          onChange={(e) => setmobile(e.target.value)}
                         />
                       </div>
                     </form>

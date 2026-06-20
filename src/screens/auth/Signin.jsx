@@ -13,7 +13,7 @@ import { signInWithPopup } from "firebase/auth";
 import Spinner from "../../components/spinner/Spinner";
 
 const initialValues = {
-  email: "",
+  mobile: "",
   password: "",
 };
 const Signin = () => {
@@ -77,7 +77,7 @@ const Signin = () => {
           };
 
           const { data } = await dbObject.post(
-            "/users/login-with-email.php",
+            "/users/login-with-mobile.php",
             formData,
             config
           );
@@ -126,14 +126,14 @@ const Signin = () => {
               spellCheck="false"
               className="form-control"
               type="text"
-              name="email"
-              placeholder="Email"
-              value={values.email}
+              name="mobile"
+              placeholder="Mobile"
+              value={values.mobile}
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errors.email && touched.email ? (
-              <small style={{ color: "red" }}>{errors.email}</small>
+            {errors.mobile && touched.mobile ? (
+              <small style={{ color: "red" }}>{errors.mobile}</small>
             ) : null}
           </div>
 

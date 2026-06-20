@@ -9,7 +9,7 @@ import Spinner from "../../components/spinner/Spinner";
 const ContactUs = () => {
   const location = useLocation();
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false)
 
@@ -17,11 +17,13 @@ const ContactUs = () => {
     e.preventDefault();
     setLoading(true)
 
-    if (name.length > 1 && email.length > 1 && message.length > 1) {
+    const isMobileValid = /^[0-9]{10}$/.test(mobile);
+
+    if (name.length > 1 && isMobileValid && message.length > 1) {
       try {
         const inputs = {
           name,
-          email,
+          mobile,
           message,
         };
 
@@ -46,7 +48,7 @@ const ContactUs = () => {
         if (!data.error) {
           toast.success("Message sent to admin", toastOptions);
           setName("");
-          setEmail("");
+          setMobile("");
           setMessage("");
         } else {
           toast.error(data.message, toastOptions);
@@ -56,7 +58,11 @@ const ContactUs = () => {
         console.log(error);
       }
     } else {
-      toast.error("All inputs required", toastOptions);
+      if (!isMobileValid) {
+        toast.error("Mobile number must be exactly 10 digits", toastOptions);
+      } else {
+        toast.error("All inputs required", toastOptions);
+      }
     }
 
     setLoading(false)
@@ -86,16 +92,16 @@ const ContactUs = () => {
 
         <div className="mb-3">
           <label htmlFor="exampleFormControlInput1" className="form-label">
-            Email address
+            Mobile Number
           </label>
           <input
-            type="email"
+            type="text"
             className="form-control"
             id="exampleFormControlInput1"
-            placeholder="name@example.com"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="9876543210"
+            name="mobile"
+            value={mobile}
+            onChange={(e) => setMobile(e.target.value)}
           />
         </div>
 
