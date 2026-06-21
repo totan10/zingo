@@ -6,13 +6,14 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth"; // Add these import
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyATeXMy5rr4wnIgY13onzUQCOBZ7pc_CKI",
-  authDomain: "zingo-7c171.firebaseapp.com",
-  databaseURL: "https://zingo-7c171-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "zingo-7c171",
-  storageBucket: "zingo-7c171.appspot.com",
-  messagingSenderId: "933340993540",
-  appId: "1:933340993540:web:736a516d4589688ede3d51"
+  apiKey: "AIzaSyBTNmWeYthqfCVhqkshNYex5FG59f2hAKY",
+  authDomain: "zingo-88d84.firebaseapp.com",
+  databaseURL: "https://zingo-88d84-default-rtdb.firebaseio.com",
+  projectId: "zingo-88d84",
+  storageBucket: "zingo-88d84.firebasestorage.app",
+  messagingSenderId: "249535229776",
+  appId: "1:249535229776:web:1d48fb00b9d2c2c0634655",
+  measurementId: "G-R5KGJGBPRD"
 };
 
 // Initialize Firebase
