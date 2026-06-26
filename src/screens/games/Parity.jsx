@@ -56,10 +56,10 @@ const Parity = () => {
   }
 
   useEffect(() => {
-    const dusKaDamRef = ref(database, "dus-ka-dum/timer");
+    setLoading(true);
+    const dusKaDamRef = ref(database, "dus-ka-dam/timer");
 
     try {
-      setLoading(true);
       onValue(dusKaDamRef, (snapshot) => {
         const data = snapshot.val();
         if (data) {
@@ -69,11 +69,11 @@ const Parity = () => {
           setTimer(secondsToTime(time));
           setTime(time);
         }
-        setLoading(false);
       });
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -224,6 +224,9 @@ const Parity = () => {
   };
 
   const formatPeriodFunc = (period) => {
+    if (!period || period.includes("/") || period.split("-").length < 6) {
+      return period;
+    }
     let periodArr = period.split("-");
 
     const formatedPeriod = `${periodArr[2]}/${periodArr[1]}/${periodArr[0]} ${periodArr[3]}:${periodArr[4]} ${periodArr[5]}`;
